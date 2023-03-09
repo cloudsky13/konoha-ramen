@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   selector:
-    app: myapp-ervice-blue
+    app: myapp-service-blue
   ports:
   - name: http
     protocol: TCP
