@@ -8,5 +8,5 @@ kubectl port-forward svc/argocd-server 8080:443 -n argocd
 
 # login with "admin" user and below token (as in documentation):
 argocd admin initial-password -n argocd
-make sure to update new password in the User Info option.
+(make sure to update new password in the User Info option.)
 
