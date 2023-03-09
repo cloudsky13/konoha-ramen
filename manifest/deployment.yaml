@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-blue
+spec:
+  selector:
+    matchLabels:
+      app: myapp-blue
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: myapp-blue
+    spec:
+      containers:
+      - name: myapp
+        image: skyhype/print:whitefang
+        ports:
+        - containerPort: 8080
