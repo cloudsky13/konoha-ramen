@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/cloudsky13/konoha-ramen
     targetRevision: HEAD
-    path: dev
+    path: manifest
   destination: 
     server: https://kubernetes.default.svc
     namespace: myapp
