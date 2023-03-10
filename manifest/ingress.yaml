@@ -10,7 +10,5 @@ spec:
     http:
       paths:
         backend:
-          service:
-            name: myapp-service
-            port:
-              number: 80
+          serviceName: myapp-service
+          servicePort: 80
