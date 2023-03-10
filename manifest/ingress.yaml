@@ -9,6 +9,10 @@ spec:
   - host: argo-bluegreen.com
     http:
       paths:
+      - path: /poc
+        pathType: Prefix
         backend:
-          serviceName: myapp-service
-          servicePort: 80
+          service:
+            name: myapp-service
+            port:
+              number: 80
