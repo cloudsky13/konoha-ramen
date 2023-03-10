@@ -10,7 +10,7 @@ kubectl port-forward svc/argocd-server 8080:443 -n argocd
 argocd admin initial-password -n argocd
 (make sure to update new password in the User Info option.)
 
-#Ingress setup on minikube
+# Ingress setup on minikube
 
 To manage ingress controllers kubernetes provides nginx ingress. It's support is extended to minikube as well as addons.
 With a simple command all dependencies will be made available and ingress will be enabled.
