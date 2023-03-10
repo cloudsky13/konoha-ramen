@@ -9,8 +9,6 @@ spec:
   - host: argo-bluegreen.com
     http:
       paths:
-#       - path: /poc
-#         pathType: Prefix
         backend:
           service:
             name: myapp-service
