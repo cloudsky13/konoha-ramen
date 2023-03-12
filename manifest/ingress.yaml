@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: blue-green-ingress
@@ -9,6 +9,6 @@ spec:
   - host: argo-bluegreen.com
     http:
       paths:
-        backend:
+      - backend:
           serviceName: myapp-service
           servicePort: 80
