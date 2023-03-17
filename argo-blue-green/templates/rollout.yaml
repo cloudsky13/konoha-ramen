@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ include "argo-blue-green.fullname" . }}
+  name: {{ template "argo-blue-green.fullname" . }}
   labels:
-    {{- include "argo-blue-green.labels" . | nindent 4 }}
+    {{- template "argo-blue-green.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "argo-blue-green.selectorLabels" . | nindent 6 }}
+      {{- template "argo-blue-green.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "argo-blue-green.selectorLabels" . | nindent 8 }}       
+        {{- template "argo-blue-green.selectorLabels" . | nindent 8 }}       
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "argo-blue-green.serviceAccountName" . }}
+      serviceAccountName: {{ template "argo-blue-green.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -61,6 +61,6 @@ spec:
       {{- end }}
     strategy:
       blueGreen: 
-        activeService: {{ include "argo-blue-green.fullname" . }}
-        previewService: {{ include "argo-blue-green.fullname" . }}-preview
+        activeService: {{ template "argo-blue-green.fullname" . }}
+        previewService: {{ template "argo-blue-green.fullname" . }}-preview
         autoPromotionEnabled: false
