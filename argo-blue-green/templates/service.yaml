@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "argo-blue-green.fullname" . }}
+  name: {{ template "argo-blue-green.fullname" . }}
   labels:
-    {{- include "argo-blue-green.labels" . | nindent 4 }}
+    {{- template "argo-blue-green.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,14 +12,14 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "argo-blue-green.selectorLabels" . | nindent 4 }}
+    {{- template "argo-blue-green.selectorLabels" . | nindent 4 }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "argo-blue-green.fullname" . }}-preview
+  name: {{ template "argo-blue-green.fullname" . }}-preview
   labels:
-    {{- include "argo-blue-green.labels" . | nindent 4 }}
+    {{- template "argo-blue-green.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -28,4 +28,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "argo-blue-green.selectorLabels" . | nindent 4 }}
+    {{- template "argo-blue-green.selectorLabels" . | nindent 4 }}
