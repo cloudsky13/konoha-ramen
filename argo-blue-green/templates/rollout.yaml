@@ -59,8 +59,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    strategy:
-      blueGreen: 
-        activeService: {{ include "argo-blue-green.fullname" . }}
-        previewService: {{ include "argo-blue-green.fullname" . }}-preview
-        autoPromotionEnabled: false
+  strategy:
+    blueGreen: 
+      activeService: {{ include "argo-blue-green.fullname" . }}
+      previewService: {{ include "argo-blue-green.fullname" . }}-preview
+      autoPromotionEnabled: false
