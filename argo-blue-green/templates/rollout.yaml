@@ -1,16 +1,16 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersion: apps/v1
 kind: Rollout
 metadata:
-  name: {{ template "argo-blue-green.fullname" . }}
+  name: {{ include "argo-blue-green.fullname" . }}
   labels:
-    {{- template "argo-blue-green.labels" . | nindent 4 }}
+    {{- include "argo-blue-green.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- template "argo-blue-green.selectorLabels" . | nindent 6 }}
+      {{- include "argo-blue-green.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,20 +18,20 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- template "argo-blue-green.selectorLabels" . | nindent 8 }}       
+        {{- include "argo-blue-green.selectorLabels" . | nindent 8 }}       
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ template "argo-blue-green.serviceAccountName" . }}
+      serviceAccountName: {{ include "argo-blue-green.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -61,6 +61,6 @@ spec:
       {{- end }}
     strategy:
       blueGreen: 
-        activeService: {{ template "argo-blue-green.fullname" . }}
-        previewService: {{ template "argo-blue-green.fullname" . }}-preview
+        activeService: {{ include "argo-blue-green.fullname" . }}
+        previewService: {{ include "argo-blue-green.fullname" . }}-preview
         autoPromotionEnabled: false
